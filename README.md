@@ -32,11 +32,11 @@ go build
 ```
 
 ### 下载已构建的软件包
+下载对应系统的软件包
 
-Github:
+Github: https://github.com/ALAPI-SDK/mcp-alapi-cn/releases
 
-CNB(国内加速): 
-
+CNB(国内加速):  https://cnb.cool/alapi/mcp-alapi-cn/-/releases
 
 
 ## 配置和使用
