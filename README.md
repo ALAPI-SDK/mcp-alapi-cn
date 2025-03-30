@@ -1,6 +1,6 @@
 # ALAPI MCP Server
 
-这是一个基于 [ALAPI](https://www.alapi.cn) 的 MCP (Model Control Protocol) 服务器实现，可以自动将 ALAPI 的 OpenAPI 规范转换为 MCP 工具。
+这是一个基于 [ALAPI](https://www.alapi.cn) 的 MCP (Model Control Protocol) 服务器实现，可以通过MCP协议直接调用ALAPI的接口
 
 ## 功能特点
 
@@ -38,7 +38,6 @@ Github: https://github.com/ALAPI-SDK/mcp-alapi-cn/releases
 
 CNB(国内加速):  https://cnb.cool/alapi/mcp-alapi-cn/-/releases
 
-
 ## 配置和使用
 
 ### 环境变量配置
@@ -47,8 +46,6 @@ CNB(国内加速):  https://cnb.cool/alapi/mcp-alapi-cn/-/releases
 
 - `ALAPI_TOKEN`（必需）：ALAPI 的认证令牌,在 [token管理](https://www.alapi.cn/dashboard/data/token) 里面创建, **如果不设置，mcp 会启动不了**
 - `ALAPI_ID`（可选）：指定要加载的 API ID，不设置则加载所有 API（实际的API_id 可通过 [ALAPI](https://www.alapi.cn)  官网查看，可在我的API里面查询）
-
-
 
 
 ### Cursor配置方式
@@ -78,7 +75,7 @@ CNB(国内加速):  https://cnb.cool/alapi/mcp-alapi-cn/-/releases
 
 名称： `MCP-ALAPI-CN`  
 类型： `STDIO`    
-命令： `C:\\Users\\Administrator\\实际目录\\mcp-alapi-cn.exe`
+命令： `C:\\Users\\Administrator\\实际目录\\mcp-alapi-cn.exe`  
 环境变量：
 ```
 ALAPI_TOKEN=你的token
