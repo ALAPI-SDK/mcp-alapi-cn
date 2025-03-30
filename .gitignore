@@ -1,0 +1,4 @@
+.idea
+*.exe
+build
+.vs_code
