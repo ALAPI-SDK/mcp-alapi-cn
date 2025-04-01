@@ -1,0 +1,13 @@
+# .cnb.yml
+$:
+  vscode:
+    - runner:
+        cpus: 4
+      docker:
+        build: .ide/Dockerfile
+      services:
+        - vscode
+        - docker
+      stages:
+        - name: go deps
+          script: go mod tidy
