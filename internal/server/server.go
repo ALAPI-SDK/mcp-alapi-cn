@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"mcp-alapi-cn/internal/config"
 	"mcp-alapi-cn/internal/handler"
@@ -72,5 +73,18 @@ func (s *Server) registerTools(doc *openapi3.T) error {
 }
 
 func (s *Server) Serve() error {
+	var transport string
+	flag.StringVar(&transport, "t", "stdio", "Transport type (stdio or sse)")
+	flag.StringVar(&transport, "transport", "stdio", "Transport type (stdio or sse)")
+	flag.Parse()
+
+	if transport == "sse" {
+		sseServer := server.NewSSEServer(s.mcpServer, server.WithBaseURL(":8080"))
+		if err := sseServer.Start(":8080"); err != nil {
+			return err
+		}
+		return nil
+	}
+
 	return server.ServeStdio(s.mcpServer)
 }
