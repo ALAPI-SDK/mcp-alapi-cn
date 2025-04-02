@@ -24,7 +24,6 @@ v1.0.*:
         - name: create release
           type: git:release
           options:
-            title: release
             description: ${LATEST_CHANGE_LOG}
         - name: build
           script:

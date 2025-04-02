@@ -3,6 +3,8 @@ package config
 import (
 	"fmt"
 	"os"
+	"os/exec"
+	"strings"
 )
 
 type Config struct {
@@ -11,6 +13,16 @@ type Config struct {
 	OpenAPIURL string
 	BaseURL    string
 	Token      string
+}
+
+// getVersion 从 Git tag 获取版本号
+func getVersion() string {
+	cmd := exec.Command("git", "describe", "--tags", "--abbrev=0")
+	output, err := cmd.Output()
+	if err != nil {
+		return "unknown"
+	}
+	return strings.TrimSpace(strings.TrimPrefix(string(output), "v"))
 }
 
 func NewConfig() (*Config, error) {
@@ -27,7 +39,7 @@ func NewConfig() (*Config, error) {
 
 	return &Config{
 		ServerName: "ALAPI MCP Server",
-		Version:    "1.0.0",
+		Version:    getVersion(),
 		OpenAPIURL: openAPIURL,
 		BaseURL:    "https://v3.alapi.cn",
 		Token:      token,

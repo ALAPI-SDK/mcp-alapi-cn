@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# 版本号
-VERSION="1.0.0"
+# 从 Git tag 获取版本号
+VERSION=$(git describe --tags --abbrev=0 | sed 's/^v//')
 
 # 创建构建目录
 mkdir -p build
