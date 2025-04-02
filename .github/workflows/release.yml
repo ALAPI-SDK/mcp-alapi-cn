@@ -1,0 +1,44 @@
+name: Release Build and Upload
+
+on:
+  push:
+    tags:
+      - 'v*'  # 匹配以 v 开头的 tag，例如 v1.0.0
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.24.1'
+          cache: true
+
+      - name: Make build.sh executable
+        run: chmod +x build.sh
+
+      - name: Build
+        run: ./build.sh
+        env:
+          GO111MODULE: on
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build/*.exe
+            build/mcp-alapi-cn-*-linux-*
+            build/mcp-alapi-cn-*-darwin-*
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
