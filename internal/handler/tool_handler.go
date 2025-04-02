@@ -49,7 +49,8 @@ func (h *ToolHandler) Handle(ctx context.Context, request mcp.CallToolRequest) (
 		return nil, fmt.Errorf("unmarshal response failed: %w", err)
 	}
 	if baseResp.Code != 200 {
-		return nil, fmt.Errorf("api response failed:%s", baseResp.Message)
+		// return nil, fmt.Errorf("api response failed:%s", baseResp.Message)
+		return mcp.NewToolResultText(baseResp.Message), nil
 	}
 
 	// 只返回 data 部分的数据
