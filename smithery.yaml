@@ -1,0 +1,23 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - alapiToken
+    properties:
+      alapiToken:
+        type: string
+        description: ALAPI token for authentication
+      alapiId:
+        type: string
+        description: Optional ALAPI API ID to specify which API to load
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({ command: './mcp-alapi-cn', env: { ALAPI_TOKEN: config.alapiToken, ALAPI_ID: config.alapiId || '' } })
+  exampleConfig:
+    alapiToken: your-alapi-token-here
+    alapiId: "0"
