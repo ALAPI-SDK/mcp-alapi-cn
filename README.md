@@ -1,5 +1,7 @@
 # ALAPI MCP Server
 
+[![smithery badge](https://smithery.ai/badge/@ALAPI-SDK/mcp-alapi-cn)](https://smithery.ai/server/@ALAPI-SDK/mcp-alapi-cn)
+
 这是一个基于 [ALAPI](https://www.alapi.cn) 的 MCP (Model Control Protocol) 服务器实现，可以通过MCP协议直接调用ALAPI的接口
 
 ## 功能特点
@@ -17,6 +19,14 @@
 - 支持 MCP 的客户端（如 Claude Desktop、Continue、Cursor 等）
 
 ## 安装
+
+### Installing via Smithery
+
+To install mcp-alapi-cn for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@ALAPI-SDK/mcp-alapi-cn):
+
+```bash
+npx -y @smithery/cli install @ALAPI-SDK/mcp-alapi-cn --client claude
+```
 
 ### 构建安装
 ```bash
