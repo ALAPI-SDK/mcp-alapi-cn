@@ -1,0 +1,14 @@
+{
+  "name": "mcp-alapi-cn",
+  "title": "ALAPI MCP",
+  "description": "提供 ALAPI 接口平台调用的 MCP 服务器，使用AI就可以与接口交互，免去开发烦扰",
+  "author": {"name": "Alone88","email": "im@alone88.cn"},
+  "gitUrl": "https://cnb.cool/alapi/mcp-alapi-cn",
+  "tags": ["社区 MCP","ALAPI","API接口调用"],
+  "port": "80",
+  "logo": ["https://file.alapi.cn/logo/logo.svg"],
+  "env_params": {
+    "ALAPI_TOKEN": "在 ALAPI 平台申请创建的 token",
+    "API_ID": "接口ID,如果不指定使用的接口，请填 0"
+  }
+}

@@ -7,6 +7,7 @@ import (
 	"mcp-alapi-cn/internal/config"
 	"mcp-alapi-cn/internal/handler"
 	"mcp-alapi-cn/internal/openapi"
+	"mcp-alapi-cn/internal/tools"
 
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/mark3labs/mcp-go/mcp"
@@ -16,41 +17,55 @@ import (
 type Server struct {
 	mcpServer *server.MCPServer
 	config    *config.Config
-	handler   *handler.ToolHandler
+	handler   *handler.OpenAPIToolHandler
+	ctx       context.Context
 }
 
-func NewServer(cfg *config.Config) *Server {
+func NewServer(ctx context.Context, cfg *config.Config) *Server {
+
 	return &Server{
 		mcpServer: server.NewMCPServer(cfg.ServerName, cfg.Version),
 		config:    cfg,
-		handler:   handler.NewToolHandler(cfg.BaseURL, cfg.Token),
+		handler:   handler.NewOpenAPIToolHandler(cfg.BaseURL, cfg.Token),
+		ctx:       ctx,
 	}
 }
 
-func (s *Server) Initialize(ctx context.Context) error {
-	loader := openapi.NewLoader(ctx)
+func (s *Server) InitializeOpenAPI(ctx context.Context) error {
+
+	loader := openapi.NewLoader(ctx, s.config.Token)
 	doc, err := loader.LoadSpec(s.config.OpenAPIURL)
 	if err != nil {
 		return fmt.Errorf("failed to load OpenAPI spec: %w", err)
 	}
 
-	return s.registerTools(doc)
+	return s.registerOpenAPITools(doc)
 }
 
-func (s *Server) registerTools(doc *openapi3.T) error {
+func (s *Server) InitializeCustomTool(ctx context.Context) {
+
+	tools.RegisterTools(ctx, s.mcpServer)
+}
+
+func (s *Server) wrapHandler(handler func(context.Context, mcp.CallToolRequest) (*mcp.CallToolResult, error)) func(context.Context, mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+	return func(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		ctxWithConfig := config.WithConfig(ctx, s.config)
+		return handler(ctxWithConfig, req)
+	}
+}
+
+func (s *Server) registerOpenAPITools(doc *openapi3.T) error {
 	toolCount := 0
 	for path, item := range doc.Paths.Map() {
 		if item.Post != nil {
 			tool := mcp.NewTool(path, mcp.WithDescription(item.Post.Summary))
 			schema := item.Post.RequestBody.Value.Content["application/json"].Schema
 
-			// 获取必填参数列表
 			requiredParams := make(map[string]bool)
 			for _, required := range schema.Value.Required {
 				requiredParams[required] = true
 			}
 
-			// 处理所有参数
 			for paramName, ref := range schema.Value.Properties {
 				description := ref.Value.Description
 				if requiredParams[paramName] {
@@ -60,7 +75,7 @@ func (s *Server) registerTools(doc *openapi3.T) error {
 				}
 			}
 
-			s.mcpServer.AddTool(tool, s.handler.Handle)
+			s.mcpServer.AddTool(tool, s.wrapHandler(s.handler.Handle))
 			toolCount++
 		}
 	}
@@ -86,5 +101,9 @@ func (s *Server) Serve() error {
 		return nil
 	}
 
+	return server.ServeStdio(s.mcpServer)
+}
+
+func (s *Server) Start() error {
 	return server.ServeStdio(s.mcpServer)
 }

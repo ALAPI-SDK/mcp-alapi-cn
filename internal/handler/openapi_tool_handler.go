@@ -10,21 +10,21 @@ import (
 	"github.com/mark3labs/mcp-go/mcp"
 )
 
-type ToolHandler struct {
+type OpenAPIToolHandler struct {
 	baseURL string
 	token   string
 	client  *resty.Client
 }
 
-func NewToolHandler(baseURL string, token string) *ToolHandler {
-	return &ToolHandler{
+func NewOpenAPIToolHandler(baseURL string, token string) *OpenAPIToolHandler {
+	return &OpenAPIToolHandler{
 		baseURL: baseURL,
 		token:   token,
 		client:  resty.New(),
 	}
 }
 
-func (h *ToolHandler) Handle(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func (h *OpenAPIToolHandler) Handle(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	arguments := request.Params.Arguments
 	uri := request.Params.Name
 
@@ -49,8 +49,7 @@ func (h *ToolHandler) Handle(ctx context.Context, request mcp.CallToolRequest) (
 		return nil, fmt.Errorf("unmarshal response failed: %w", err)
 	}
 	if baseResp.Code != 200 {
-		// return nil, fmt.Errorf("api response failed:%s", baseResp.Message)
-		return mcp.NewToolResultText(baseResp.Message), nil
+		return nil, fmt.Errorf("request params error: %s", baseResp.Message)
 	}
 
 	// 只返回 data 部分的数据

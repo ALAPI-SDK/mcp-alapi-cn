@@ -2,6 +2,8 @@
 
 startCommand:
   type: stdio
+  build:
+    dockerfile: smithery.Dockerfile
   configSchema:
     # JSON Schema defining the configuration options for the MCP.
     type: object
