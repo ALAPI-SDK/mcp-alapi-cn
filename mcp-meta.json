@@ -1,14 +1,14 @@
 {
   "name": "mcp-alapi-cn",
   "title": "ALAPI MCP",
-  "description": "提供 ALAPI 接口平台调用的 MCP 服务器，使用AI就可以与接口交互，免去开发烦扰",
-  "author": {"name": "Alone88","email": "im@alone88.cn"},
+  "description": "通过 MCP 协议提供 ALAPI 接口平台服务，支持IP归属地查询、天气查询、热榜数据、文本审核、短网址等功能，可通过 LLM 自然语言交互调用",
+  "author": {"name": "Alone88"},
   "gitUrl": "https://cnb.cool/alapi/mcp-alapi-cn",
-  "tags": ["社区 MCP","ALAPI","API接口调用"],
+  "tags": ["社区 MCP","ALAPI","数据接口","天气服务","企业服务"],
   "port": "80",
   "logo": ["https://file.alapi.cn/logo/logo.svg"],
   "env_params": {
     "ALAPI_TOKEN": "在 ALAPI 平台申请创建的 token",
-    "API_ID": "接口ID,如果不指定使用的接口，请填 0"
+    "ALAPI_ID": "接口ID,如果不指定使用的接口，请填 0"
   }
 }
