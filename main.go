@@ -31,6 +31,6 @@ func main() {
 
 	fmt.Printf("MCP Server initialized with OpenAPI spec from: %s\n", cfg.OpenAPIURL)
 	if err := srv.Start(); err != nil {
-		log.Fatalf("启动服务器失败: %v", err)
+		log.Fatalf("服务器退出: %v", err)
 	}
 }

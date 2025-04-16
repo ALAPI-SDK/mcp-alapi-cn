@@ -60,7 +60,7 @@ func NewConfig(ctx context.Context) (*Config, error) {
 
 	apiID := os.Getenv("ALAPI_API_ID")
 	openAPIURL := "https://v3.alapi.cn/openapi.json"
-	if apiID != "" {
+	if apiID != "" && apiID != "0" {
 		openAPIURL = fmt.Sprintf("https://v3.alapi.cn/openapi/%s.json", apiID)
 	}
 

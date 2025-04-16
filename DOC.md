@@ -9,7 +9,7 @@
 ## 环境变量
 
 - 需要将 **ALAPI_TOKEN** 配置为您在 ALAPI 上创建的 [TOKEN](https://www.alapi.cn/dashboard/data/token)
-- 可选配置 **ALAPI_ID** 为接口ID，如果不指定使用的接口，请填 0
+- 可选配置 **ALAPI_API_ID** 为接口ID，如果不指定使用的接口，请填 0 或者填空字符串
 
 ## 🗺️ 功能清单
 
