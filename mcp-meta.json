@@ -9,6 +9,6 @@
   "logo": ["https://file.alapi.cn/logo/logo.svg"],
   "env_params": {
     "ALAPI_TOKEN": "在 ALAPI 平台申请创建的 token",
-    "ALAPI_ID": "接口ID,如果不指定使用的接口，请填 0"
+    "ALAPI_API_ID": "接口ID,如果不指定使用的接口，请填 0 或者填空字符串"
   }
 }
