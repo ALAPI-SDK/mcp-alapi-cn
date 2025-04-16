@@ -18,11 +18,21 @@
 
 首先需要了解 [MCP](https://modelcontextprotocol.io/introduction) 协议，然后按照以下配置添加 ALAPI MCP 服务。
 
+
 ## 在 MCP 客户端中使用
+
 
 ALAPI MCP Server 设计为与支持 MCP 协议的客户端配合使用，不支持独立的命令行配置。请按照以下步骤在您的 MCP 客户端中配置使用：
 
-### 方法一：使用 Smithery 自动安装
+
+### 方法一： 远程 MCP
+
+本项目支持[一键部署到腾讯云开发平台](https://docs.cloudbase.net/ai/mcp/develop/host-mcp)，提供远程 SSE 访问
+
+[☁️ 前往云开发平台部署 MCP Server](https://tcb.cloud.tencent.com/dev#/ai?tab=mcp&p&mcp-template=mcp-alapi-cn)
+
+
+### 方法二：使用 Smithery 自动安装
 
 通过 [Smithery](https://smithery.ai/server/@ALAPI-SDK/mcp-alapi-cn) 安装 ALAPI MCP Server，适用于 Claude Desktop 客户端：
 
@@ -30,7 +40,7 @@ ALAPI MCP Server 设计为与支持 MCP 协议的客户端配合使用，不支�
 npx -y @smithery/cli install @ALAPI-SDK/mcp-alapi-cn --client claude
 ```
 
-### 方法二：直接使用预编译二进制文件（推荐，不用安装依赖）
+### 方法三：直接使用预编译二进制文件（推荐，不用安装依赖）
 
 1. 访问 [Releases 页面](https://github.com/ALAPI-SDK/mcp-alapi-cn/releases) 下载最新版本 
    > 国内加速下载地址：https://cnb.cool/alapi/mcp-alapi-cn/-/releases
